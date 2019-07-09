@@ -4,14 +4,14 @@ class CartProductsController < ApplicationController
   before_action :my_cart_list, only: %i[index show create]
   def index
     # @products = Product.includes(:cart_products)
-    @products = Product.joins('LEFT OUTER JOIN cart_products on products.id=cart_products.product_id AND cart_products.cart_id = ',current_user.cart.id.to_s).select('cart_products.qty as qty,products.*').to_a
+    @products = Product.joins('LEFT OUTER JOIN cart_products on products.id=cart_products.product_id AND cart_products.cart_id = ?',current_user.cart.id.to_s).select('cart_products.qty as qty,products.*').to_a
     @cart_product = authorize CartProduct.new
   end
 
   def show
     @cart_product = authorize CartProduct.new
-    if !Product.where(id: params[:id]).empty?
-      @product = Product.where(id: params[:id]).take
+    if @product = Product.where(id: params[:id]).take
+      # @product = Product.where(id: params[:id]).take
     else
       redirect_to home_index_path
     end

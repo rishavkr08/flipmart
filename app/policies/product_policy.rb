@@ -23,9 +23,7 @@ class ProductPolicy < ApplicationPolicy
     admin_validate?
   end
 
-  def edit?
-    update?
-  end
+  # alias_method :update?, :edit?
 
   def show?
     admin_validate?
