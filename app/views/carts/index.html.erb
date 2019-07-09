@@ -1,0 +1,76 @@
+<%= render 'home/head'%>
+<div class="container-fluid">
+    <div class="row">
+        <br />
+        <div class="col-md-12 heading text-center">
+            <h class="text-light pl-4 font-weight-bold">My Cart</h>
+            &emsp;
+            <i class="fa fa-shopping-cart fa-lg"></i>
+        </div>
+        <div class="col-md-12 text-center">
+            <% if @my_cart_products.empty? %>
+                <div class="mt-5 pt-5">
+                    <img src="/assets/cart_empty.png"/>
+                    <div class="col-md-12 mt-5 pt-5">
+                        <%= link_to(raw("Start Shopping Now <i class='fa fa-shopping-cart' aria-hidden='true'></i>"), home_index_path, class: "btn btn-danger btn-block btn-sm") %>
+                    </div>
+                </div>
+            <% else %>
+                <table class="table table-hover">
+                    <caption class="font-weight-bold text-center align-middle font-italic">It's an add to cart kinda day !</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Sl. No.</th>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Image</th>
+                                <th scope="col" class="text-center">Delete</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% total = 0 %>
+                            <% @my_cart_products.each_with_index do |cart, index| %> 
+                                <% index + 1 %>
+                                <% total = total + cart.product.price.to_i * cart.qty.to_i %>
+                                <tr>
+                                    <th scope="col" class="text-center align-middle"><%= index+1%>.</th>
+                                    <th scope="col" class="align-middle"><%= cart.product.name %></th>
+                                    <th scope="col" class="text-center align-middle"><%= image_tag cart.product.image.url(:thumb) %><br></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= link_to(raw("<i class='fa fa-trash' style='color: #555;'></i>"), cart_product_path(cart.product), method: :delete, data: { confirm: 'Item will be removed from your cart. Are you sure?'}) %>  
+                                    </th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(cart.product.price, text: '₹ ')%>/-
+                                    </th>
+                                    <th scope="col" class="align-middle">
+                                        <%= link_to(raw("<p class='btn-minus'>-</p>"),cart_url(cart.product.id, qty: -1),method: :put,remote: true,class:"btn btn-sm btn-danger rounded-circle" ) %>
+                                        &emsp;<%= cart.qty %>&emsp;
+                                        <%= link_to(raw("<p class='btn-plus'>+</p>"),cart_url(cart.product.id, qty: 1),method: :put,remote: true,class:"btn btn-sm btn-danger rounded-circle" ) %><br>
+                                    </th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(cart.product.price.to_i*cart.qty.to_i, text: '₹ ') %>/-
+                                    </th>
+                                </tr>
+                            <% end %>
+                                <tr class="bg-dark text-light">
+                                    <td scope="col"  class="text-right align-middle font-weight-bold" colspan="6">
+                                        Total amount : 
+                                    </td>
+
+                                    <td scope="col" class="text-center align-middle font-weight-bold" colspan="1">
+                                        <%= number_to_indian_currency(total, text: '₹ ') %>/-
+                                    </td>
+                                </tr>
+                        </tbody>
+                </table>
+            
+        </div>
+        <div class="col-md-12">
+            <%= link_to(raw("Proceed to Checkout <i class='fa fa-check-circle' aria-hidden='true'></i>"), new_order_path,class: "btn btn-success btn-block" ) %>  
+        </div>
+        <% end %>
+         <br><br><br>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<%= render 'products/head' %>
+
+<div class="container-fluid">
+    <div class="row">
+        <% if @orders.empty? %>
+                <div class=" col-md-12 mt-5 mb-5 pt-5 pb-5 text-center align-middle">
+                    <img src="/assets/no-orders.png" style="height: 300px; width:400px;" />
+                    <h2 class="font-weight-bold">No Orders</h2>
+                </div>
+        <% else %>
+        <% @orders.each_with_index do |order, index| %> 
+            <div class="col-md-12 text-center">
+                <table class="table table-hover table-sm text-light font-weight-lighter">
+                        <caption></caption>
+                        <thead>
+                            <tr class="bg-success">
+                                <th scope="col" class="text-left" colspan="2">Order Id : #2019FM<%= order.id %></th>
+                                <th scope="col" class="text-left" colspan="2">Order Status : <%= @order_status %></th>
+                                <th scope="col" class="text-center"><%= order.created_at.to_date.strftime("%d-%m-%Y") %></th>
+                                <th scope="col" class="text-center">
+                                <% if @order_process != 'success' %>
+                                    <%= link_to(raw(@order_process.capitalize+" <i class='fa fa-paper-plane'></i>"),process_order_url(order,order_update: @order_process),method: :put,class:"btn btn-block btn-sm btn-primary" ) %>
+                                <% else %>
+                                    <%= @order_process.capitalize %>
+                                <% end %>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-center">Sl. No.</th>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Image</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% order.order_products.includes(:product).each do |item| %>
+                                <tr>
+                                    <th scope="col" class="text-center align-middle"><%= index %>.</th>
+                                    <th scope="col" class="align-middle"><%= item.product.name %></th>
+                                    <th scope="col" class="text-center align-middle">  <%= image_tag item.product.image.url(:thumb) %> </th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(item.product.price, text: '₹ ')%>/-
+                                    </th>
+                                    <th scope="col" class="text-center align-middle"><%= item.qty  %></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(item.product.price.to_i*item.qty.to_i, text: '₹ ') %>/-
+                                    </th>
+                                </tr>
+                            <% end %>
+                                <tr class="bg-dark text-light">
+                                    <td scope="col"  class="text-right align-middle font-weight-bold" colspan="5">
+                                        Total amount : 
+                                    </td>
+
+                                    <td scope="col" class="text-center align-middle font-weight-bold" colspan="1">
+                                        <%= number_to_indian_currency(order.total, text: '₹ ') %>/-
+                                    </td>
+                                </tr>
+                        </tbody>
+                </table>
+            </div>
+        <% end %>
+        <% end %>
+        <div class="col-md-12">
+            <%= link_to(raw("Back <i class='fa fa-check-circle' aria-hidden='true'></i>"), products_path,class: "btn btn-primary btn-sm btn-block" ) %>  
+        </div>
+         <br><br><br>
+    </div>
+</div>

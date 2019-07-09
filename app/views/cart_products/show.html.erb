@@ -1,0 +1,58 @@
+<%= render 'home/head'%>
+
+<div class="container-fluid">
+    <br>
+    <div class="row justify-content-center">
+        <div class="pt-3 pb-3 col-md-10 col-sm-12 text-dark">
+            <div class="row child-bg">
+                <div class="col-md-3 offset-md-1">
+                    <%= image_tag @product.image.url(:medium) %><br><br>
+                </div>
+                <div class="col-md-8 parent-bg p-4">
+                    <h5 class="font-weight-bold">Name : <%= @product.name %></h5>
+                    <br>
+                    <h6>Description : <%= @product.description %></h6>
+                    <br>
+                    <price>Price : <%= number_to_indian_currency(@product.price, text: '₹ ')%>/-</price>
+                </div>
+            </div>
+            <div class="row justify-content-center child-bg">
+                <div class="col-md-12">
+                    
+                    
+                    <%= form_with scope: :cart_product, model: @cart_product, local: true do |f| %>
+
+                    <% if @cart_product.errors.any? %>
+                        <div id="error_explanation">
+                        <ol class="list-group">
+                        <li class="list-group-item bg-danger">
+                            <%= pluralize(@cart_product.errors.count, "error") %> prohibited this products from being saved:
+                        </li>
+                        </ol>
+                        <% @cart_product.errors.full_messages.each do |msg| %>
+                            <kbd class="bg-danger"><%= msg %></kbd><br>
+                        <% end %>
+                        </div>
+                    <% end %>
+            
+                    <div class="col-md-12 text-center">
+                        <%= f.hidden_field(:pid, :value => @product.id) %>
+                        <br>
+                        <% if CartProduct.where("product_id=? AND cart_id=?",@product.id,current_user.cart.id).count != 1 %>
+                            <%= button_tag(type: 'submit', class:"btn btn-primary btn-block btn-sm") do %>
+                                Add to Cart <i class="fa fa-shopping-cart"></i>
+                            <% end %>
+                        <% else %>
+                            <%= link_to(raw("Go to Cart <i class='fa fa-shopping-cart'></i>"), carts_path, class: "btn btn-success btn-block btn-sm" ) %>
+                        <% end %>
+                    </div>
+
+                    <% end %>
+
+
+
+                </div>
+            </div>    
+        </div>
+	</div>
+</div>

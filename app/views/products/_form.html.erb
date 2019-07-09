@@ -1,0 +1,43 @@
+<br><br>
+<div class="container">
+  <div class="row justify-content-center">
+    <div
+      class="col-md-6 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center"
+    >
+      <h class="text-light font-weight-bold">
+        Add product <%= icon('fa','plus-circle') %>
+      </h>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-sm-12 p-10 pt-2 pb-2 content-parent text-light">
+	<%= form_with scope: :product, model: @product do |f| %>
+      <div class="form-group">
+        <label for="name">Name :</label>
+        <%= f.text_field :name, placeholder: "Enter your name",class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="description">Product description :</label>
+        <%= f.text_area :description, placeholder: "Enter product description", class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="price">Price :</label>
+        <%= f.text_field :price, placeholder: "Enter product price",class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="image">Choose product image :</label>
+        <%= f.file_field :image %>
+      </div>
+			
+      <div class="form-group d-flex justify-content-center">
+        <%= button_tag(type: 'submit', class:"btn btn-success btn-block btn-sm") do %>
+          Save <i class="fa fa-save"></i>
+        <% end %>
+      </div>
+      <div class="form-group d-flex justify-content-center">
+      <%= link_to(raw(" Back <i class='fa fa-home' aria-hidden='true'></i>"), products_path,{ class:"btn btn-primary font-weight-bold btn-block btn-sm"})  %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

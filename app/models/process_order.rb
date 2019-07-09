@@ -1,0 +1,2 @@
+class ProcessOrder < ApplicationRecord
+end

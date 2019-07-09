@@ -1,0 +1,293 @@
+<div class="row pt-2 pb-2 heading">
+  <div class="col-md-1 col-sm-1 my-auto text-center">
+    <%= link_to(raw("<i class='fa fa-home fa-lg'></i>"), home_index_path) %>    
+  </div>
+  <div class="col-md-3 col-sm-3 my-auto">
+    <h class="text-light pl-4 font-weight-bold">
+      FLIPMART <img src="/assets/cart.png" style="height:40px;width:40px;" />
+    </h>
+  </div>
+  <div class="col-md-4 col-sm-4 d-flex justify-content-center my-auto">
+    <t class="text-light font-weight-bold">
+      <% if !current_user.nil? %>
+        Welcome to Filpmart, <%= current_user.name %>
+      <% end %>
+    </t>
+    
+  </div>
+  <div class="col-md-2 col-sm-2 d-flex justify-content-center my-auto">
+    
+    <!-- Toogle Modal -->
+    <button type="button" class="btn btn-transparent" data-container="body" data-toggle="modal" data-target="#exampleModalCenter">
+      <i class="fa fa-shopping-cart"></i> <span class="badge badge-pill badge-danger" style="position: relative;top: 8px;left:-5px;"><%= CartProduct.where("cart_id = ?",current_user.cart.id).count %></span>
+    </button>
+
+    <%= link_to(raw("<i class='fa fa-clipboard'></i> Orders"),orders_path,class: "btn btn-transparent") %>
+      
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">My Cart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="text-light">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <% if @my_cart_products.empty? %>
+            <img src="/assets/cart_empty.png" class="img-fluid"/>
+          <% else %>
+            <div class="d-flex justify-content-center">
+              <div class="col-md-12">
+                  <table class="table table-hover table-sm">
+                      <thead>
+                          <tr>
+                              <th scope="col" class="text-center">Name</th>
+                              <th scope="col" class="text-center">Price</th>
+                              <th scope="col" class="text-center">Qty</th>
+                              <th scope="col" class="text-center">Delete</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% @my_cart_products.each do |cart| %>
+                              <tr>
+                                  <th scope="col"><%= cart.product.name %></th>
+                                  <th scope="col" class="text-right"><%= number_to_indian_currency(cart.product.price, text: '₹ ')%>/-</th>
+                                  <th scope="col" class="text-center"> <%= cart.qty %> </th>
+                        
+                                  <th scope="col" class="text-center">
+                                    <%= link_to(raw("<i class='fa fa-trash' style='color: #555;'></i>"), cart_product_path(cart.product), method: :delete, remote: true) %>  
+                                  </th>
+                              </tr>
+                          <% end %>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <% if @my_cart_products.empty? %>
+              <%= link_to "Start shopping now", home_index_path, class: "btn btn-danger btn-block btn-sm" %>
+            <% else %>
+              <%= link_to "Go to cart", carts_path, class: "btn btn-success btn-block btn-sm" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2 col-sm-2 d-flex justify-content-center my-auto">
+    <t class="text-light font-weight-bold">
+      <% if !current_user.nil? %>
+        <%= link_to(raw("<button class='btn btn-danger'>Logout <i class='fa fa-sign-out-alt' aria-hidden='true'></i></button>"),destroy_user_session_path, method: :delete ) %>
+      <% else %>
+        <%= link_to(raw("Signin <i class='fa fa-sign-in-alt' aria-hidden='true'></i> / Signup <i class='fa fa-user-plus' aria-hidden='true'></i>"),new_user_session_path ) %>
+      <% end %>
+    </t>
+  </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand font-weight-bold" href="#"
+    ><img src="/assets/cart.png" style="height:30px;width:30px;"
+  /></a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse pl-4 ml-2 mr-2 bg-dark" id="navbarSupportedContent" style="z-index: 100">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link font-weight-bold" href="/"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item active dropdown">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Electronics
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Mobile</a>
+          <a class="dropdown-item" href="#">Mobile Accessories</a>
+          <a class="dropdown-item" href="#">Smart Wearable Tech</a>
+          <a class="dropdown-item" href="#">Health Care Appliances</a>
+          <a class="dropdown-item" href="#">Laptop</a>
+          <a class="dropdown-item" href="#">Desktop PCs</a>
+          <a class="dropdown-item" href="#">Gaming Accessories</a>
+          <a class="dropdown-item" href="#">Computer Accessories</a>
+          <a class="dropdown-item" href="#">Tablets</a>
+          <a class="dropdown-item" href="#">Camera</a>
+          <a class="dropdown-item" href="#">Speaker</a>
+          <a class="dropdown-item" href="#">Earphones</a>
+          <a class="dropdown-item" href="#">Headphones</a>
+          <a class="dropdown-item" href="#">Network Components</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+      <li class="nav-item active dropdown">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          TV & Appliances
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Televisions</a>
+          <a class="dropdown-item" href="#">Android TVs</a>
+          <a class="dropdown-item" href="#">Smart & Ultra HD</a>
+          <a class="dropdown-item" href="#">Air Conditioners</a>
+          <a class="dropdown-item" href="#">Refrigerators</a>
+          <a class="dropdown-item" href="#">Washing Machine</a>
+          <a class="dropdown-item" href="#">Healthy Living Appliances</a>
+          <a class="dropdown-item" href="#">Smart Home Appliances</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Men
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Shirt</a>
+          <a class="dropdown-item" href="#">T-shirt</a>
+          <a class="dropdown-item" href="#">Pant</a>
+          <a class="dropdown-item" href="#">Jeans</a>
+          <a class="dropdown-item" href="#">Suit & Blazer</a>
+          <a class="dropdown-item" href="#">Sweatshirt</a>
+          <a class="dropdown-item" href="#">Sweater</a>
+          <a class="dropdown-item" href="#">Shoes</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Women
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">T-shirt</a>
+          <a class="dropdown-item" href="#">Top</a>
+          <a class="dropdown-item" href="#">Kurtis</a>
+          <a class="dropdown-item" href="#">Suit</a>
+          <a class="dropdown-item" href="#">Jacket</a>
+          <a class="dropdown-item" href="#">Sweater</a>
+          <a class="dropdown-item" href="#">Sarees</a>
+          <a class="dropdown-item" href="#">Skirts</a>
+          <a class="dropdown-item" href="#">Jeans</a>
+          <a class="dropdown-item" href="#">Jwellery</a>
+          <a class="dropdown-item" href="#">Shoes</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Baby & Kids
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Boy's Clothing</a>
+          <a class="dropdown-item" href="#">Girl's Clothing</a>
+          <a class="dropdown-item" href="#">Boy's Footwear</a>
+          <a class="dropdown-item" href="#">Girl's Footwear</a>
+          <a class="dropdown-item" href="#">Character Shoes</a>
+          <a class="dropdown-item" href="#">Winter Wear</a>
+          <a class="dropdown-item" href="#">School Supplies</a>
+          <a class="dropdown-item" href="#">Toys</a>
+          <a class="dropdown-item" href="#">Baby Care</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown active">
+        <a
+          class="nav-link dropdown-toggle font-weight-bold"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Home & Furniture
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Kitchen  Cookware</a>
+          <a class="dropdown-item" href="#">Tableware & DinnerWare</a>
+          <a class="dropdown-item" href="#">Kitchen Storage</a>
+          <a class="dropdown-item" href="#">Cleaning Supplies</a>
+          <a class="dropdown-item" href="#">Character Shoes</a>
+          <a class="dropdown-item" href="#">Furniture</a>
+          <a class="dropdown-item" href="#">Furnishing</a>
+          <a class="dropdown-item" href="#">Smart Home Automation</a>
+          <a class="dropdown-item" href="#">Tools & Hardware</a>
+          <a class="dropdown-item" href="#">Home Decor  </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">All</a>
+        </div>
+      </li>
+    </ul>
+    <%# <form class="form-inline my-2 my-lg-0">
+      <input
+        class="form-control mr-2 form-control-sm"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-sm btn-success" type="submit">
+        Search
+      </button>
+    </form> %>
+  </div>
+</nav>
+

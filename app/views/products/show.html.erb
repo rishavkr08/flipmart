@@ -1,0 +1,46 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<div class="row">
+    <div class="col-md-2 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center">
+        <h class="text-light font-weight-bold">
+            <%= link_to(raw(icon('fa', 'home')),products_path,{ :class => 'highlight'})  %>
+        </h>
+    </div>
+    <div class="col-md-8 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center">
+        <h class="text-light font-weight-bold">
+            Product Added
+        </h>
+    </div>
+    <div class="col-md-2 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center">
+        <h class="text-light font-weight-bold">
+            <%= link_to(raw("<i class='fa fa-plus-circle'></i>"),new_product_path,{ :class => 'highlight'})  %>
+        </h>
+    </div>
+</div>
+<div class="container">
+    <br><br>
+    <div class="row justify-content-center">
+        <div class="pt-3 pb-3 col-md-10 col-sm-12 text-dark">
+            <div class="row child-bg">
+                <div class="col-md-3 offset-md-1">
+                    <%= image_tag @product.image.url(:medium),class:"img-fluid" %><br><br>
+                </div>
+                <div class="col-md-8 parent-bg p-4">
+                    <h5 class="font-weight-bold">Name : <%= @product.name %></h5>
+                    <br>
+                    <h6>Description : <%= @product.description %></h6>
+                    <br>
+                    <price>Price : <%= number_to_indian_currency(@product.price, text: '₹ ')%>/-</price>
+                </div>
+            </div>
+            <div class="row justify-content-center child-bg">
+                <div class="col-md-12">
+                    <%= link_to(raw(" Edit <i class='fa fa-edit' aria-hidden='true'></i>"),edit_product_path(@product),{ class:"btn btn-success font-weight-bold btn-block btn-sm"})  %>
+                </div>
+            </div>    
+        </div>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<div class="row pt-2 pb-2 heading">
+  <div class="col-md-12 justify-content-center">
+    <h class="text-light pl-4 font-weight-bold">
+      FLIPMART <img src="/assets/cart.png" style="height:40px;width:40px;" />
+    </h>
+  </div>
+</div>
+
+<br /><br />
+<div class="container">
+  <div class="row justify-content-center">
+    <div
+      class="col-md-6 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center"
+    >
+      <h class="text-light font-weight-bold">
+        Sign Up
+      </h>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-sm-12 p-10 pt-2 pb-2 content-parent text-light">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %> 
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-group">
+        <label for="name">Name :</label>
+        <%= f.text_field :name, placeholder: "Enter your name",class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="email">Email id :</label>
+        <%= f.text_field :email, placeholder: "Enter your email id", class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="password">Password :</label>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, placeholder: "Enter your password",class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="passwordconfirmation">Confirm password :</label>
+        <%= f.password_field :password_confirmation, placeholder: "Re-enter your password", class:"form-control form-control-sm" %>
+      </div>
+      <div class="form-group">
+        <label for="role">Role :</label>   &emsp;
+          <%= f.radio_button :role, 'admin' %> Admin
+          <%= f.radio_button :role, 'user' %> User
+          <%= f.radio_button :role, 'seller' %> Seller
+      </div>
+      <div class="form-group d-flex justify-content-center">
+        <%= f.submit 'Create my account',class:"btn btn-success btn-block btn-sm" %>
+      </div>
+      <div class="form-group d-flex justify-content-center">
+        <%= link_to 'Already have an Account? Sign In',
+        new_session_path(resource_name),class:"btn btn-primary btn-block btn-sm" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

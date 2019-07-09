@@ -1,0 +1,86 @@
+<%= render 'home/head'%>
+<div class="container-fluid">
+    <div class="row">
+        <br />
+        <div class="col-md-12 heading text-center">
+            <h class="text-light pl-4 font-weight-bold">Order</h>
+            <i class="fa fa-shopping-cart fa-lg"></i>
+        </div>
+        <div class="col-md-12 text-center">
+            
+                <table class="table table-hover">
+                    <caption class="font-weight-bold text-center align-middle font-italic">Shopping can buy happiness!</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Sl. No.</th>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Image</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% slno = 0 %> 
+                            <% total = 0 %>
+                            <% totalqty = 0 %>
+                            <% @my_cart_products.each do |cart| %> 
+                            <% slno = slno.next %>
+                            <% total = total + cart.product.price.to_i * cart.qty.to_i %>
+                            <% totalqty = totalqty + cart.qty.to_i %>
+                                <tr>
+                                    <th scope="col" class="text-center align-middle"><%= slno%>.</th>
+                                    <th scope="col" class="align-middle"><%= cart.product.name %></th>
+                                    <th scope="col" class="text-center align-middle"><%= image_tag cart.product.image.url(:thumb) %><br></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(cart.product.price, text: '₹ ')%>/-
+                                    </th>
+                                    <th scope="col" class="text-center align-middle"><%= cart.qty  %></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(cart.product.price.to_i*cart.qty.to_i, text: '₹ ') %>/-
+                                    </th>
+                                </tr>
+                            <% end %>
+                                <tr class="bg-dark text-light">
+                                    <td scope="col"  class="text-left align-middle font-weight-bold" colspan="4">
+                                        Total : 
+                                    </td>
+                                    <td scope="col"  class="text-center align-middle font-weight-bold" colspan="1">
+                                        <%= totalqty %>
+                                    </td>
+                                    <td scope="col" class="text-center align-middle font-weight-bold" colspan="1">
+                                        <%= number_to_indian_currency(total, text: '₹ ') %>/-
+                                    </td>
+                                </tr>
+                        </tbody>
+                </table>
+        </div>
+        <%= form_with scope: :order, url: orders_path do |f| %>
+            <div class="col-md-11 parent-bg p-3 ml-5 mr-5">
+                <div class="form-group child-bg">
+                    <label>Shipping Address <i class="fa fa-map-marked-alt" aria-hidden="true"></i></label><br>
+                    <div class="row">
+                    <div class="col-md-2"><label>Name</label></div><div class="col-md-10">:&emsp;&emsp;<%= current_user.name%></div>
+                    <div class="col-md-2"><label>Email-id</label></div><div class="col-md-10">:&emsp;&emsp;<%= current_user.email%></div>
+                    <div class="col-md-2"><label>Contact no.</label></div><div class="col-md-10">:&emsp;&emsp;XXXXXXXXXX</div>
+                    <div class="col-md-2"><label>Address</label></div><div class="col-md-10">:&emsp;&emsp;Flat no. 101, Block 1, Manisha Enclave,Saileshree Vihar, Bhubaneswar</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%= f.hidden_field(:total, :value => total) %>
+                    <%= f.hidden_field(:qty, :value => totalqty) %>
+                </div>
+                <div class="form-group child-bg">
+                    <label>Select paytment method <i class="fa fa-money-bill-alt" aria-hidden="true"></i></label><br>
+                    <%= f.select "payment", options_for_select([["Select Payment", ""], "Cash", "Debit Card", "Credit Card", "Paytm", "Google Pay","PhonePe","Mobiqwik","Paypal","Cash on Delivery"]),{}, class: "form-control" %>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <%= button_tag(type: 'submit', class:"btn btn-success font-weight-bold btn-block btn-sm") do %>
+                  Place Order <i class="fa fa-check-circle"></i>
+                <% end %>
+            </div>
+        <% end %>
+        <br><br>
+    </div>
+</div>

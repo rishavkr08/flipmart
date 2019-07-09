@@ -1,0 +1,59 @@
+<%= render "home/head" %>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 heading text-center align-middle">
+            <h class="text-light pl-4 font-weight-bold">My Orders</h>
+            &emsp;
+            <i class="fa fa-edit fa-lg" style="position: relative;top: -3px;"></i>
+        </div>
+        <div class="col-md-12 text-center">
+            <% if @orders.empty? %>
+                <div class="mt-5 pt-5">
+                    <img src="/assets/no-order.png" class="img-fluid" style="height:256px;width:256px;"/>
+                    <div class="col-md-12 mt-5 pt-5">
+                        <%= link_to(raw("Start Shopping Now <i class='fa fa-shopping-cart' aria-hidden='true'></i>"), home_index_path, class: "btn btn-danger btn-block btn-sm") %>
+                    </div>
+                </div>
+            <% else %>
+                <table class="table table-hover">
+                    <caption class="font-weight-bold text-center align-middle font-italic">List of happiness !</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Sl. No.</th>
+                                <th scope="col" class="text-center">Order Id</th>
+                                <th scope="col" class="text-center">Order Time</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Total</th>
+                                <th scope="col" class="text-center">Payment Mode</th>
+                                <th scope="col" class="text-center">Status</th>
+                                <th scope="col" class="text-center">Order Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% slno = 0 %> 
+                            <% @orders.find_all do |order| %> 
+                            <% slno = slno.next %>
+                                <tr>
+                                    <th scope="col" class="text-center align-middle"><%= slno%>.</th>
+                                    <th scope="col" class="align-middle">#FM2019<%= order.id %></th>
+                                    <th scope="col" class="text-center align-middle"><%= order.created_at.strftime("%H:%M %p") %> <%= order.created_at.strftime("%B %d, %Y") %><br></th>
+                                    <th scope="col" class="text-center align-middle"><%= order.qty %></th>
+                                    <th scope="col" class="text-center align-middle"><%= number_to_indian_currency(order.total, text: '₹ ')%>/-</th>
+                                    <th scope="col" class="text-center align-middle"><%= order.payment %></th>
+                                    <th scope="col" class="text-center align-middle"><%= order.aasm_state.sub("_"," ").to_s.capitalize %></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= link_to(raw("View Details <i class='fa fa-clipboard'></i>"),order_path(order),class: "btn btn-success btn-sm") %>
+                                    </th>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                </table>
+            <% end %>
+        </div>
+        <% if !@orders.empty? %>
+            <div class="col-md-12 text-center align-middle">
+                <img src="/assets/tq.png" class="img-fluid" style="height:300px;width:300px;" />
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,189 @@
+html {
+  height: 100%;
+}
+body {
+  background-color: whitesmoke;
+  color: #04060f;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.ancestor-bg {
+  background-color: #ebebeb;
+  box-shadow: 0px 0px 5px, rgba(0, 0, 0, 0.6);
+}
+.parent-bg {
+  background-color: #fafafa;
+  padding: 10px;
+  box-shadow: 0px 0px 5px, rgba(0, 0, 0, 0.6);
+}
+.child-bg {
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0px 0px 5px, rgba(0, 0, 0, 0.6);
+}
+
+.navbar {
+  height: 50px;
+}
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, white, 50%)
+) {
+  ::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(to top, #fff2f5, #fff);
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+@include scrollbars(0.5em, #bb1924);
+
+a,
+a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.heading {
+  background-color: #bb1924;
+  color: #fff;
+  box-shadow: 0px 0px 5px, rgba(0, 0, 0, 0.6);
+}
+h {
+  font-size: 2em;
+  font-family: cursive;
+}
+ch {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #212121;
+  font-family: fantasy;
+}
+t {
+  font-size: 1em;
+  font-family: cursive;
+}
+label {
+  font-weight: bold;
+}
+.btn {
+  font-weight: bold;
+  border-radius: 0;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+}
+.btn-success {
+  background-color: #388f20;
+  border-color: #388f20;
+  color: #fff;
+}
+.btn-primary {
+  background-color: #132f63;
+  border-color: #132f63;
+  color: #fff;
+}
+.btn-warning {
+  background-color: #fb8c2e;
+  border-color: #fb8c2e;
+  color: #fff;
+}
+.btn-info {
+  background-color: #3fabaf;
+  border-color: #3fabaf;
+  color: #fff;
+}
+.btn-danger {
+  background-color: #bb1924;
+  border-color: #bb1924;
+  color: #fff;
+}
+.btn-transparent,
+.btn-transparent:hover {
+  box-shadow: none;
+  color: #fff;
+  border: none;
+}
+.content-parent {
+  background-color: #221e22;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+}
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+  color: #555;
+  font-size: 15px;
+  font-weight: lighter;
+}
+tbody tr:nth-child(even) {
+  background-color: #fff;
+  color: #555;
+  font-size: 15px;
+  font-weight: lighter;
+}
+thead {
+  background-color: #04060f;
+  color: #f9faf5;
+}
+.product {
+  padding: 30px;
+  height: auto;
+  width: 100%;
+}
+price {
+  display: inline;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(to left, #555, #04060f);
+  // font-weight: bold;
+}
+.dropdown-menu {
+  background-color: #343a40;
+}
+.dropdown-item {
+  color: #fff;
+}
+.modal-header {
+  color: #fff;
+  background-color: #bb1924;
+}
+.bg-danger {
+  background-color: #bb1924;
+  color: #fff;
+}
+.rounded-circle {
+  width: 20px;
+  height: 20px;
+  font-weight: bolder;
+}
+.btn-plus {
+  position: relative;
+  right: 2.5px;
+  top: -5px;
+}
+.btn-minus {
+  position: relative;
+  right: 1px;
+  top: -5px;
+}
+.db {
+  font-size: 3em;
+}
+.db:hover {
+  font-size: 3.5em;
+}

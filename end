@@ -1,0 +1,22 @@
+
+[1mFrom:[0m /home/rishav/Documents/Rails/flipmart/app/controllers/products_controller.rb @ line 76 ProductsController#update_order_status:
+
+    [1;34m69[0m: [32mdef[0m [1;34mupdate_order_status[0m
+    [1;34m70[0m:   order_update = {
+    [1;34m71[0m:     [35maccept_order[0m: [31m[1;31m'[0m[31mOrder Accepted[1;31m'[0m[31m[0m,
+    [1;34m72[0m:     [35mdeliver_drder[0m: [31m[1;31m'[0m[31mOut for Delivery[1;31m'[0m[31m[0m,
+    [1;34m73[0m:     [35morder_delivered[0m: [31m[1;31m'[0m[31mOrder Delivered[1;31m'[0m[31m[0m
+    [1;34m74[0m:   }
+    [1;34m75[0m:   param = params[[33m:order_update[0m].parameterize.underscore.to_sym
+ => [1;34m76[0m:   binding.pry
+    [1;34m77[0m:   [1;34;4mOrder[0m.where([31m[1;31m'[0m[31mid=?[1;31m'[0m[31m[0m, params[[33m:order_id[0m]).update([35mstatus[0m: order_update[param])
+    [1;34m78[0m:   [1;34m# if params[:order_update] == 'Accept Order'[0m
+    [1;34m79[0m:   [1;34m#   Order.where('id=?', params[:order_id]).update(status: 'Order Accepted')[0m
+    [1;34m80[0m:   [1;34m# elsif params[:order_update] == 'Deliver Order'[0m
+    [1;34m81[0m:   [1;34m#   Order.where('id=?', params[:order_id]).update(status: 'Out for Delivery')[0m
+    [1;34m82[0m:   [1;34m# elsif params[:order_update] == 'Order Delivered'[0m
+    [1;34m83[0m:   [1;34m#   Order.where('id=?', params[:order_id]).update(status: 'Order Delivered')[0m
+    [1;34m84[0m:   [1;34m# end[0m
+    [1;34m85[0m:   redirect_back [35mfallback_location[0m: root_path
+    [1;34m86[0m: [32mend[0m
+

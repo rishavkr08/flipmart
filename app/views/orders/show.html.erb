@@ -1,0 +1,59 @@
+<%= render 'home/head'%>
+<div class="container-fluid">
+    <div class="row">
+        <br />
+        <div class="col-md-12 heading text-center">
+            <h class="text-light pl-4 font-weight-bold">Order Details</h>
+            &emsp;
+            <i class="fa fa-shopping-cart fa-lg"></i>
+        </div>
+        <div class="col-md-12 text-center">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Sl. No.</th>
+                                <th scope="col" class="text-center">Name</th>
+                                <th scope="col" class="text-center">Image</th>
+                                <th scope="col" class="text-center">Price</th>
+                                <th scope="col" class="text-center">Quantity</th>
+                                <th scope="col" class="text-center">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% slno = 0 %> 
+                            <% total = 0 %>
+                            <% @my_order_products.each do |order| %> 
+                            <% slno = slno.next %>
+                            <% total = total + order.product.price.to_i * order.qty.to_i %>
+                                <tr>
+                                    <th scope="col" class="text-center align-middle"><%= slno%>.</th>
+                                    <th scope="col" class="align-middle"><%= order.product.name %></th>
+                                    <th scope="col" class="text-center align-middle"> <%= image_tag order.product.image.url(:thumb) %> </th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(order.product.price, text: '₹ ')%>/-
+                                    </th>
+                                    <th scope="col" class="text-center align-middle"><%= order.qty  %></th>
+                                    <th scope="col" class="text-center align-middle">
+                                        <%= number_to_indian_currency(order.product.price.to_i*order.qty.to_i, text: '₹ ') %>/-
+                                    </th>
+                                </tr>
+                            <% end %>
+                                <tr class="bg-dark text-light">
+                                    <td scope="col"  class="text-right align-middle font-weight-bold" colspan="5">
+                                        Total amount : 
+                                    </td>
+
+                                    <td scope="col" class="text-center align-middle font-weight-bold" colspan="1">
+                                        <%= number_to_indian_currency(total, text: '₹ ') %>/-
+                                    </td>
+                                </tr>
+                        </tbody>
+                </table>
+            
+        </div>
+        <div class="col-md-12">
+            <%= link_to(raw("Back <i class='fa fa-check-circle' aria-hidden='true'></i>"), orders_path,class: "btn btn-success btn-block" ) %>  
+        </div>
+         <br><br><br>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="col-md-4 col-sm-6 col-xs-6 d-flex justify-content-center md-offset-2 mb-4">
+    <div>
+        <div class="row p-2" style="background-color: <%= body_color %>;">
+            <div class="col-md-8 col-sm-6 text-center p-2 pl-1 pr-1">
+                <h3 class="text-light font-weight-bold"><%= number %></h3>
+                <h6 class="font-italic text-light"><%= name %></h6>
+            </div>
+            <div class="col-md-4 col-sm-6 text-center align-middle">
+                <i
+                class="fa <%= icon %> fa-lg text-light align-middle pt-4 pr-4"
+                aria-hidden="true"
+                style="font-size: 3em;"
+                ></i>
+            </div>
+        </div>
+        <div class="row" style="background-color:<%= footer_color %>; width: 300px;">
+            <div class="col-md-12 text-center text-white">
+                <%= link_to(raw("More Info <i class='fa fa-arrow-circle-right' aria-hidden='true'></i>"), road,class: "btn-block") %>
+            </div>
+        </div>
+    </div>
+</div>

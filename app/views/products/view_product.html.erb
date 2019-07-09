@@ -1,0 +1,52 @@
+<%= render 'products/head' %>
+
+<div class="container">
+	<br>
+	<div class="row">
+		<div class="col-md-12 col-sm-12">
+			<%= link_to(raw(" New Product <i class='fa fa-plus-circle' aria-hidden='true'></i>"), new_product_path,{ class:"btn btn-info font-weight-bold btn-block btn-sm"})  %>
+		</div>
+	</div>
+  <div class="row justify-content-center">
+  	<% @products.each do |product| %>
+			<div class="pt-3 pb-3 col-md-6 col-sm-12">
+				<div class="card bg-primary">
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<h5 class="card-header font-weight-bold text-light"><%= product.name %></h5>
+						</div>
+					</div>
+					<div class="card-body child-bg text-dark">
+						<div class="row">
+							<div class="col-md-4 text-center align-middle">
+								<%= image_tag product.image.url(:medium),class:"img-fluid" %><br><br>
+							</div>
+							<div class="col-md-8 align-middle">
+								<h5 class="card-title font-weight-bold"><%= product.name %></h5>
+								<p class="card-text"><%= product.description %></p>
+								<price><%= number_to_indian_currency(product.price, text: '₹ ')%>/-</price>
+							</div>
+						</div>
+            			<br><br>
+                        
+						<div class="row justify-content-center">
+                            <% if params[:product_action] === "edit" %>
+                                <div class="col-md-12 col-sm-12">
+                                    <%= link_to(raw(" Edit <i class='fa fa-edit' aria-hidden='true'></i>"),edit_product_path(product),{ class:"btn btn-success font-weight-bold btn-block btn-sm"})  %>
+                                </div>
+                            <% elsif params[:product_action] === "delete" %>
+                                <div class="col-md-12 col-sm-12">
+                                    <%= link_to(raw("<button class='btn btn-danger font-weight-bold btn-block btn-sm'>Destroy <i class='fa fa-trash-alt' aria-hidden='true'></i></button>"), product_path(product),{method: :delete}  ) %>
+                                </div>
+                            <% elsif params[:product_action] === "view" %>
+                                <div class="col-md-12">
+                                    <%= link_to(raw(" Show <i class='fa fa-eye' aria-hidden='true'></i>"),product_path(product),{ class:"btn btn-info font-weight-bold btn-block btn-sm"})  %>
+                                </div>
+                            <% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	</div>
+</div>

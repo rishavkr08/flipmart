@@ -1,0 +1,45 @@
+<div class="row pt-2 pb-2 heading">
+  <div class="col-md-12 justify-content-center">
+    <h class="text-light pl-4 font-weight-bold">
+      FLIPMART <img src="/assets/cart.png" style="height:40px;width:40px;" />
+    </h>
+  </div>
+</div>
+
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-12 pt-2 pb-2 heading d-flex justify-content-center">
+            <h class="text-light font-weight-bold">
+                Sign In
+            </h>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-12 p-10 pt-2 pb-2 content-parent text-light">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+                <div class="form-group">
+                    <label for="email">Email id :</label>
+                    <%= f.email_field :email, placeholder: "Enter your email id", class:"form-control form-control-sm" %>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password :</label>
+                    <%= f.password_field :password, placeholder: "Enter your password",class:"form-control form-control-sm" %>
+			        	</div>
+                <% if devise_mapping.rememberable? %>
+                  <div class="form-group">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  </div>
+                <% end %>
+                <div class="form-group d-flex justify-content-center">
+                    <%= f.submit 'SignIn to Flipmart', class:"btn btn-success btn-block btn-sm" %>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                    <%= link_to "New user? Sign up now!",  new_registration_path(resource_name), class:"btn btn-info btn-block btn-sm" %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

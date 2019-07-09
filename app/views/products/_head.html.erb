@@ -1,0 +1,37 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+
+<div class="row pt-2 pb-2 heading h-100">
+  <div class="col-md-1 col-sm-1 my-auto text-center">
+      <%= link_to(raw("<i class='fa fa-home' style='font-size:30px;'></i>"), products_path) %>
+  </div>
+  <div class="col-md-3 my-auto">
+    <h class="text-light pl-4 font-weight-bold">
+      FLIPMART <img src="/assets/cart.png" style="height:40px;width:40px;" />
+    </h>
+  </div>
+  <div class="col-md-4 heading text-center">
+    <h class="text-light pl-4 font-weight-bold"><%= @order_status %></h>
+    &emsp;
+    <i class="fa fa-chart-area fa-lg"></i>
+  </div>
+  <div class="col-md-2 col-sm-3 d-flex justify-content-center my-auto">
+    <t class="text-light font-weight-bold">
+      <% if current_user.nil? %>
+        <%= link_to(raw("Signin <i class='fa fa-sign-in-alt' aria-hidden='true'></i> / Signup <i class='fa fa-user-plus' aria-hidden='true'></i>"),new_user_session_path ) %>
+      <% else %>
+        <%= current_user.name %>
+      <% end %>
+    </t>
+  </div>
+  <div class="col-md-2 col-sm-3 d-flex justify-content-center my-auto">
+    <t class="text-light font-weight-bold">
+      <% if !current_user.nil? %>
+        <%= link_to(raw("<button class='btn btn-danger'>Logout <i class='fa fa-sign-out-alt' aria-hidden='true'></i></button>"),destroy_user_session_path, method: :delete ) %>
+      <% end %>
+    </t>
+  </div>
+</div>
+
