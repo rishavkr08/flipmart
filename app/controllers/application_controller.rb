@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     if !user_signed_in?
-      flash[:alert] = 'You are not authorized to access the page. Please login !'
+      flash[:alert] = 'You are not authorized to access the page. Please login!'
       redirect_to new_user_session_path
     elsif current_user.role == 'user'
-      flash[:alert] = 'You are not authorized to access the page. Please login as Admin!'
+      flash[:alert] = 'You are not authorized t o access the page. Please login as Admin!'
       redirect_to home_index_path
     else
       flash[:alert] = 'You are not authorized to access the page. Please login as User!'
