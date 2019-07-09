@@ -12,8 +12,8 @@
     <br /><br />
 <div class="row">
 
-    <%= render partial: 'container', :locals => {:name => "Active Users",:number => 0,:icon => "fa-trash", :body_color => "#dd4b39",:footer_color => "#c74334", :road => "/products/view_product?product_action=delete"} %>
-    
+    <%= render partial: 'container', :locals => {:name => "Active Users",:number => 0,:icon => "fa-user-circle", :body_color => "#dd4b39",:footer_color => "#c74334", :road => "/products/view_product?product_action=delete"} %>
+
     <%= render partial: 'container', :locals => {:name => "New Orders",:number => Order.where("aasm_state=?","order_processing").count,:icon => "fa-cart-plus", :body_color => "#3E8989",:footer_color => "#397A7A", :road => "/process_orders/index?order_status=order_processing"} %>
 
     <%= render partial: 'container', :locals => {:name => "Order Processed",:number => Order.where("aasm_state=?","order_accepted").count,:icon => "fa-cogs", :body_color => "#F87060",:footer_color => "#DB5E50", :road => "/process_orders/index?order_status=order_accepted"} %>
