@@ -1,33 +1,36 @@
-<%= render 'head' %> <br />
+<%= render 'head' %>
+<br/>
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
       <h3 class="text-dark">
-        <i class="fa fa-chart-line"></i> Dashboard<label
-          class="badge font-weight-light"
-          >(Control Panel)</label
-        >
+        <i class="fa fa-chart-line"></i>
+        Dashboard<label class="badge font-weight-light">(Control Panel)</label >
       </h3>
     </div>
-    <br /><br />
-<div class="row">
+    <br/><br/>
+    <div class="row">
 
-  <%= render partial: 'container', :locals => {:name => "Active Users",:number => User.count,:icon => "fa-user-circle", :body_color => "#734d4c",:footer_color => "#4F3130", :road => "#"} %>
+      <%= render partial: 'container', :locals => {:name => "Active Users",:number => User.count,:icon => "fa-user-circle", :body_color => "#734d4c",:footer_color => "#4F3130", :road => "#"} %>
 
-  <%= render partial: 'container', :locals => {:name => "New Orders",:number => Order.where("aasm_state=?","order_processing").count,:icon => "fa-cart-plus", :body_color => "#3E8989",:footer_color => "#397A7A", :road => "/process_orders/index?order_status=order_processing"} %>
+      <%= render partial: 'container', :locals => {:name => "New Orders",:number => Order.where("aasm_state=?","order_processing").count,:icon => "fa-cart-plus", :body_color => "#3E8989",:footer_color => "#397A7A", :road =>
+      "/process_orders/index?order_status=order_processing&order_process=accept"} %>
 
-  <%= render partial: 'container', :locals => {:name => "Order Processed",:number => Order.where("aasm_state=?","order_accepted").count,:icon => "fa-cogs", :body_color => "#F87060",:footer_color => "#DB5E50", :road => "/process_orders/index?order_status=order_accepted"} %>
-   
-  <%= render partial: 'container', :locals => {:name => "Out for Delivery",:number => Order.where("aasm_state=?","out_for_delivery").count,:icon => "fa-truck", :body_color => "#f39c11",:footer_color => "#db8c0e", :road => "/process_orders/index?order_status=out_for_delivery"} %>
+      <%= render partial: 'container', :locals => {:name => "Order Processed",:number => Order.where("aasm_state=?","order_accepted").count,:icon => "fa-cogs", :body_color => "#F87060",:footer_color => "#DB5E50", :road =>
+      "/process_orders/index?order_status=order_accepted&order_process=deliver"} %>
 
-  <%= render partial: 'container', :locals => {:name => "Order Delivered",:number => Order.where("aasm_state=?","order_delivered").count,:icon => "fa-check-circle", :body_color => "#4ea759",:footer_color => "#45964f", :road => "/process_orders/index?order_status=order_delivered"} %>
+      <%= render partial: 'container', :locals => {:name => "Out for Delivery",:number => Order.where("aasm_state=?","out_for_delivery").count,:icon => "fa-truck", :body_color => "#f39c11",:footer_color => "#db8c0e", :road =>
+      "/process_orders/index?order_status=out_for_delivery&order_process=delivered"} %>
 
-  <%= render partial: 'container', :locals => {:name => "Add Product",:number => 0,:icon => "fa-plus-circle", :body_color => "#46c1ee",:footer_color => "#3eadd7", :road => "/products/new"} %>
+      <%= render partial: 'container', :locals => {:name => "Order Delivered",:number => Order.where("aasm_state=?","order_delivered").count,:icon => "fa-check-circle", :body_color => "#4ea759",:footer_color => "#45964f", :road =>
+      "/process_orders/index?order_status=order_delivered&order_process=sucess"} %>
 
-  <%= render partial: 'container', :locals => {:name => "Edit Product",:number => 0,:icon => "fa-edit", :body_color => "#5AFF15",:footer_color => "#49D30E", :road => "/products/view_product?product_action=edit"} %>
+      <%= render partial: 'container', :locals => {:name => "Add Product",:number => 0,:icon => "fa-plus-circle", :body_color => "#46c1ee",:footer_color => "#3eadd7", :road => "/products/new"} %>
 
-  <%= render partial: 'container', :locals => {:name => "View Products",:number => Product.count,:icon => "fa-eye", :body_color => "#564D65",:footer_color => "#4D455A", :road => "/products/view_product?product_action=view"} %>
+      <%= render partial: 'container', :locals => {:name => "Edit Product",:number => 0,:icon => "fa-edit", :body_color => "#5AFF15",:footer_color => "#49D30E", :road => "/products/view_product?product_action=edit"} %>
 
-  <%= render partial: 'container', :locals => {:name => "Remove Product",:number => 0,:icon => "fa-trash", :body_color => "#dd4b39",:footer_color => "#c74334", :road => "/products/view_product?product_action=delete"} %>
+      <%= render partial: 'container', :locals => {:name => "View Products",:number => Product.count,:icon => "fa-eye", :body_color => "#564D65",:footer_color => "#4D455A", :road => "/products/view_product?product_action=view"} %>
 
-</div>
+      <%= render partial: 'container', :locals => {:name => "Remove Product",:number => 0,:icon => "fa-trash", :body_color => "#dd4b39",:footer_color => "#c74334", :road => "/products/view_product?product_action=delete"} %>
+
+    </div>

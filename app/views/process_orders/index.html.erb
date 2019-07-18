@@ -8,7 +8,7 @@
                     <h2 class="font-weight-bold">No Orders</h2>
                 </div>
         <% else %>
-        <% @orders.each_with_index do |order, index| %> 
+        <% @orders.each_with_index do |order, index| %>
             <div class="col-md-12 text-center">
                 <table class="table table-hover table-sm text-light font-weight-lighter">
                         <caption></caption>
@@ -51,7 +51,7 @@
                             <% end %>
                                 <tr class="bg-dark text-light">
                                     <td scope="col"  class="text-right align-middle font-weight-bold" colspan="5">
-                                        Total amount : 
+                                        Total amount :
                                     </td>
 
                                     <td scope="col" class="text-center align-middle font-weight-bold" colspan="1">
@@ -64,7 +64,7 @@
         <% end %>
         <% end %>
         <div class="col-md-12">
-            <%= link_to(raw("Back <i class='fa fa-check-circle' aria-hidden='true'></i>"), products_path,class: "btn btn-primary btn-sm btn-block" ) %>  
+            <%= link_to(raw("Back <i class='fa fa-check-circle' aria-hidden='true'></i>"), products_path,class: "btn btn-primary btn-sm btn-block" ) %>
         </div>
          <br><br><br>
     </div>
