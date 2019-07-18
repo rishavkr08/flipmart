@@ -83,5 +83,5 @@ end
 group :production do
   # Using postgreSQL in heroku for production
   gem 'pg'
-  gem 'rails_12factor'
+  # gem 'rails_12factor'
 end
