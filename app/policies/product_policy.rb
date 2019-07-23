@@ -11,11 +11,11 @@ class ProductPolicy < ApplicationPolicy
     admin_validate?
   end
 
-  def create
+  def create?
     admin_validate?
   end
 
-  def new
+  def new?
     create?
   end
 

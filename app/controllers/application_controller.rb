@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.role == 'user'
       flash[:alert] = 'You are not authorized t o access the page. Please login as Admin!'
       redirect_to home_index_path
-    else
+    elsif current_user.role == 'admin'
       flash[:alert] = 'You are not authorized to access the page. Please login as User!'
       redirect_to products_path
     end

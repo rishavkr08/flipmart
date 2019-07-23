@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = authorize Product.where('id=?', params[:id]).take
+    @product = Product.where('id=?', params[:id]).take
   end
 
   def update
