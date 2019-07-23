@@ -40,7 +40,6 @@ class ProductPolicy < ApplicationPolicy
   private
 
   def admin_validate?
-    #   binding.pry
     if user.nil?
       false
     else
